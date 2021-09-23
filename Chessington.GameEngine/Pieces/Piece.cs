@@ -25,6 +25,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentPos = board.FindPiece(this);
             List<Square> diagMoves = new List<Square>();
+            List<Square> blockedMoves = new List<Square>();
 
             for (int x = 0; x < 8; x++)
             {
@@ -32,10 +33,47 @@ namespace Chessington.GameEngine.Pieces
                 {
                     if ((Square.At(x, y).Row - currentPos.Row == Square.At(x, y).Col - currentPos.Col || currentPos.Row - Square.At(x, y).Row == Square.At(x, y).Col - currentPos.Col) && currentPos != Square.At(x, y))
                     {
-                        diagMoves.Add(Square.At(x, y));
+                        if (board.GetPiece(Square.At(x, y)) == null)
+                        {
+                            diagMoves.Add(Square.At(x, y));
+                        }
+                        else
+                        {
+                            blockedMoves.Add(Square.At(x, y));
+                        }
                     }
                 }
             }
+            foreach (Square blockedMove in blockedMoves)
+            {
+                if (blockedMove.Col > currentPos.Col)
+                {
+                    if (blockedMove.Row > currentPos.Row)
+                    {
+                        diagMoves.RemoveAll(s => (s.Col > currentPos.Col) && (s.Row > currentPos.Row));
+                    }
+                    else
+                    {
+                        diagMoves.RemoveAll(s => (s.Col > currentPos.Col) && (s.Row < currentPos.Row));
+                    }
+  
+                }
+
+                else if (blockedMove.Col < currentPos.Col)
+                {
+                    if (blockedMove.Row > currentPos.Row)
+                    {
+                        diagMoves.RemoveAll(s => (s.Col < currentPos.Col) && (s.Row > currentPos.Row));
+                    }
+                    else
+                    {
+                        diagMoves.RemoveAll(s => (s.Col < currentPos.Col) && (s.Row < currentPos.Row));
+                    }
+
+                }
+
+            }
+
             return diagMoves;
         }
         public List<Square> GetLatMoves(Board board)
@@ -43,8 +81,6 @@ namespace Chessington.GameEngine.Pieces
             Square currentPos = board.FindPiece(this);
             List<Square> latMoves = new List<Square>();
             List<Square> blockedMoves = new List<Square>();
-            List<Square> blockedRow = new List<Square>();
-            List<Square> blockedCol = new List<Square>();
 
 
             for (int i = 0; i < 8; i++)
