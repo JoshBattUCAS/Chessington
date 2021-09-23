@@ -17,7 +17,7 @@ namespace Chessington.GameEngine.Pieces
 
             if (Player == Player.White)
             {
-                if (this.GetMoveCounter() == 0)
+                if (this.moveCounter == 0)
                 {
                     moves.Add(availablePos = Square.At(currentPos.Row - 2, currentPos.Col));
                 }
@@ -26,7 +26,7 @@ namespace Chessington.GameEngine.Pieces
             }
             else 
             {
-                if (this.GetMoveCounter() == 0)
+                if (this.moveCounter == 0)
                 {
                     moves.Add(availablePos = Square.At(currentPos.Row +2, currentPos.Col));
                 }
@@ -34,7 +34,6 @@ namespace Chessington.GameEngine.Pieces
                 moves.Add(availablePos = Square.At(currentPos.Row + 1, currentPos.Col));
             }
 
-            System.Console.WriteLine(moves);
             return moves;
         }
 

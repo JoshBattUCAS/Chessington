@@ -21,9 +21,5 @@ namespace Chessington.GameEngine.Pieces
             var currentSquare = board.FindPiece(this);
             board.MovePiece(currentSquare, newSquare);
         }
-        public int GetMoveCounter()
-        {
-            return moveCounter;
-        }
     }
 }
