@@ -42,17 +42,67 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentPos = board.FindPiece(this);
             List<Square> latMoves = new List<Square>();
+            List<Square> blockedMoves = new List<Square>();
+            List<Square> blockedRow = new List<Square>();
+            List<Square> blockedCol = new List<Square>();
+
 
             for (int i = 0; i < 8; i++)
             {
                 if (currentPos.Col != i)
                 {
-                    latMoves.Add(Square.At(currentPos.Row, i));
+                    if (board.GetPiece(Square.At(currentPos.Row, i)) == null)
+                    {
+                        latMoves.Add(Square.At(currentPos.Row, i));
+                    }
+                    else
+                    {
+                        blockedMoves.Add(Square.At(currentPos.Row, i));
+                    }
+
+                    
                 }
                 if (currentPos.Row != i)
                 {
-                    latMoves.Add(Square.At(i, currentPos.Col));
+                    if (board.GetPiece(Square.At(i, currentPos.Col)) == null)
+                    {
+                        latMoves.Add(Square.At(i, currentPos.Col));
+                    }
+                    else
+                    {
+                        blockedMoves.Add(Square.At(i, currentPos.Col));
+                    }
                 }
+            }
+
+            //Removes Blocked Moves from List
+
+            foreach (Square blockedMove in blockedMoves)
+            {
+                if (blockedMove.Col == currentPos.Col)
+                {
+                    if (blockedMove.Row < currentPos.Row)
+                    {
+                        latMoves.RemoveAll(s => (s.Row < currentPos.Row));
+                    }
+                    else
+                    {
+                        latMoves.RemoveAll(s => (s.Row > currentPos.Row));
+                    }
+                }
+
+                else if (blockedMove.Row == currentPos.Row)
+                {
+                    if (blockedMove.Col < currentPos.Col)
+                    {
+                        latMoves.RemoveAll(s => (s.Col < currentPos.Col));
+                    }
+                    else
+                    {
+                        latMoves.RemoveAll(s => (s.Col > currentPos.Col));
+                    }
+                }
+
             }
             return latMoves;
         }
