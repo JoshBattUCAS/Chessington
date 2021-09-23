@@ -21,7 +21,7 @@ namespace Chessington.GameEngine.Pieces
                 moves.Add(Square.At(currentPos.Row + rows[i], currentPos.Col + cols[i]));
             }
 
-            moves.RemoveAll(s => (s.Row < 0 || s.Row > 7) && (s.Col < 0 || s.Col > 7));
+            moves.RemoveAll(s => (s.Row < 0 || s.Row > 7 || s.Col < 0 || s.Col > 7));
 
             return moves;
         }
