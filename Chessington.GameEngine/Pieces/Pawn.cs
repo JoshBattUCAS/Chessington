@@ -17,21 +17,27 @@ namespace Chessington.GameEngine.Pieces
 
             if (Player == Player.White)
             {
-                if (this.moveCounter == 0)
+                if (board.GetPiece(Square.At(currentPos.Row - 1, currentPos.Col)) == null)
                 {
-                    moves.Add(availablePos = Square.At(currentPos.Row - 2, currentPos.Col));
-                }
+                    if (this.moveCounter == 0 && board.GetPiece(Square.At(currentPos.Row - 2, currentPos.Col)) == null)
+                    {
+                        moves.Add(availablePos = Square.At(currentPos.Row - 2, currentPos.Col));
+                    }
 
-                moves.Add(availablePos = Square.At(currentPos.Row - 1, currentPos.Col));
+                    moves.Add(availablePos = Square.At(currentPos.Row - 1, currentPos.Col));
+                }
             }
             else 
             {
-                if (this.moveCounter == 0)
+                if (board.GetPiece(Square.At(currentPos.Row + 1, currentPos.Col)) == null)
                 {
-                    moves.Add(availablePos = Square.At(currentPos.Row +2, currentPos.Col));
-                }
+                    if (this.moveCounter == 0 && board.GetPiece(Square.At(currentPos.Row + 2, currentPos.Col)) == null)
+                    {
+                        moves.Add(availablePos = Square.At(currentPos.Row + 2, currentPos.Col));
+                    }
 
-                moves.Add(availablePos = Square.At(currentPos.Row + 1, currentPos.Col));
+                    moves.Add(availablePos = Square.At(currentPos.Row + 1, currentPos.Col));
+                }
             }
 
             return moves;
