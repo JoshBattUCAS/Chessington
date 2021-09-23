@@ -58,6 +58,7 @@ namespace Chessington.GameEngine
             }
 
             //Move the piece and set the 'from' square to be empty.
+            movingPiece.moveCounter += 1;
             board[to.Row, to.Col] = board[from.Row, from.Col];
             board[from.Row, from.Col] = null;
 
