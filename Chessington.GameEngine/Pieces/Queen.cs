@@ -12,6 +12,7 @@ namespace Chessington.GameEngine.Pieces
         {
             Square currentPos = board.FindPiece(this);
             List<Square> moves = new List<Square>();
+            
 
             //Bishop and Rook movement combined
 
@@ -19,7 +20,11 @@ namespace Chessington.GameEngine.Pieces
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    if ((Square.At(x, y).Row - currentPos.Row == Square.At(x, y).Col - currentPos.Col || currentPos.Row - Square.At(x, y).Row == Square.At(x, y).Col - currentPos.Col || Square.At(x, y).Row == currentPos.Row || Square.At(x, y).Col == currentPos.Col) && currentPos != Square.At(x, y ))
+                    if ((Square.At(x, y).Row - currentPos.Row == Square.At(x, y).Col - currentPos.Col 
+                        || currentPos.Row - Square.At(x, y).Row == Square.At(x, y).Col - currentPos.Col 
+                        || Square.At(x, y).Row == currentPos.Row 
+                        || Square.At(x, y).Col == currentPos.Col) 
+                        && currentPos != Square.At(x, y))
                     {
                         moves.Add(Square.At(x, y));
                     }
